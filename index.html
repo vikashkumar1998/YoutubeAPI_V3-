@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>YouTube Video Player Demo</title>
+  <!-- Include Plyr.io CSS -->
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.6.4/plyr.css">
+</head>
+<body>
+  <div class="player">
+    <!-- Custom video player container -->
+    <video id="player" controls>
+      <!-- Video source will be loaded dynamically using JavaScript -->
+      <!-- <source src="" type="video/mp4"> -->
+    </video>
+  </div>
+
+  <!-- Include Plyr.io JS -->
+  <script src="https://cdn.plyr.io/3.6.4/plyr.js"></script>
+  <script>
+    // Your YouTube API key
+    const apiKey = 'AIzaSyBT_41nskiGg8ax-GELhkxFCBpKtO7mTcY';
+
+    // Function to fetch video data and initialize Plyr player
+    function fetchAndInitializePlayer(videoId) {
+      fetch(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${apiKey}&part=snippet`)
+        .then(response => response.json())
+        .then(data => {
+          const videoTitle = data.items[0].snippet.title;
+          const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+
+          // Display video title or perform other actions with fetched data
+          console.log('Video Title:', videoTitle);
+
+          // Initialize Plyr player after data is fetched
+          const player = new Plyr('#player', {
+            controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen']
+          });
+          player.source = {
+            type: 'video',
+            sources: [
+              {
+                src: videoUrl,
+                type: 'video/youtube'
+              }
+            ]
+          };
+        })
+        .catch(error => {
+          console.error('Error fetching video data:', error);
+        });
+    }
+
+    // Fetch video data for a given video ID
+    const unlistedVideoId = 'fDAPJ7rvcUw'; // Replace with your unlisted video ID
+    fetchAndInitializePlayer(unlistedVideoId);
+  </script>
+</body>
+</html>
