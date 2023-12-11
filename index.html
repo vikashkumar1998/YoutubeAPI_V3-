@@ -18,10 +18,9 @@
   <!-- Include Plyr.io JS -->
   <script src="https://cdn.plyr.io/3.6.4/plyr.js"></script>
   <script>
-    // Your YouTube API key
+    // YouTube API key
     const apiKey = 'AIzaSyBT_41nskiGg8ax-GELhkxFCBpKtO7mTcY';
 
-    // Function to fetch video data and initialize Plyr player
     function fetchAndInitializePlayer(videoId) {
       fetch(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${apiKey}&part=snippet`)
         .then(response => response.json())
@@ -29,7 +28,6 @@
           const videoTitle = data.items[0].snippet.title;
           const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
 
-          // Display video title or perform other actions with fetched data
           console.log('Video Title:', videoTitle);
 
           // Initialize Plyr player after data is fetched
@@ -51,8 +49,7 @@
         });
     }
 
-    // Fetch video data for a given video ID
-    const unlistedVideoId = 'fDAPJ7rvcUw'; // Replace with your unlisted video ID
+    const unlistedVideoId = 'fDAPJ7rvcUw'; // unlisted video ID
     fetchAndInitializePlayer(unlistedVideoId);
   </script>
 </body>
